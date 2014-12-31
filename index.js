@@ -3,7 +3,7 @@ var request = require('request');
 var RiotApi = module.exports = function(API_KEY) {
     this.API_KEY = API_KEY;
     this._cache = {};
-    this.BASE_PATH = 'http://prod.api.pvp.net/api/lol/';
+    this.BASE_PATH = 'https://na.api.pvp.net/api/lol/';
 };
 
 RiotApi.prototype.getCachedJSONRequest = function(url, callback) {
@@ -33,10 +33,10 @@ RiotApi.prototype.getCachedJSONRequest = function(url, callback) {
         });
     }
 };
-// prod.api.pvp.net/api/lol/'+region+'/v1.3/summoner/by-name/'+name+'?api_key=' + auth.leagueoflegend.key/;
+
 RiotApi.prototype.getChampions = function(options, callback) {
     var region = (options.region||'NA').toLowerCase();
-    this.getCachedJSONRequest(this.BASE_PATH + region + '/v1.1/champion?api_key='+this.API_KEY, function(json) {
+    this.getCachedJSONRequest(this.BASE_PATH + region + '/v1.2/champion?api_key='+this.API_KEY, function(json) {
         if(json.hasOwnProperty('status')) callback(json);
         else if(options.hasOwnProperty('filter')) {
             var filtered = [];
